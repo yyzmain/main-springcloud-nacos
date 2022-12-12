@@ -1,0 +1,101 @@
+##################### 该配置文件用于开发环境及docker部署环境，docker部署环境通过环境变量方式修改属性 ############################
+server:
+  port: 8180
+  servlet:
+    context-path: /${spring.application.name}
+  undertow:
+    threads:
+      io: 4
+      worker: 20 # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 1024
+    # 每个区分配的buffer数量 , 所以pool的大小是buffer-size * buffers-per-region
+    #    buffers-per-region: 1024
+    # 是否分配的直接内存
+    direct-buffers: true
+
+# 监控点端口
+management:
+  server:
+    port: 8181
+    servlet:
+      context-path: /${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "promethues"
+
+
+
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 1
+    # 控制入参,可使用@DateTimeFormat来控制
+    format:
+      # 配置全局请求参数String类型转Date类型，可以在Controller中使用注解@DateTimeFormat(pattern="yyyy-MM-dd")来按需配置
+      date: yyyy-MM-dd HH:mm:ss # 配置请求的String类型转Date类型
+  jackson:
+    # 配置全局Date类型返回时的时间格式，可使用@JsonFormat(pattern="")来按需控制
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8 #设置Date类型的时区
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true   # 启用http上传处理
+      max-file-size: 50MB # 设置单个文件的最大长度
+      max-request-size: 50MB # 设置最大的请求文件的大小
+      file-size-threshold: 1MB  # 当上传文件达到1MB的时候进行磁盘写入
+      location:  # 上传的临时目录
+  # security 安全配置，支持spring.security.basic（默认true），spring.security.csrf（默认true）,spring.security.cors(默认false)
+  security:
+    basic: true #自定义字段,是否开启httpbasic认证，默认true
+    csrf: false #是否开启跨站请求伪造校验，默认true
+    cors: false #是否开启跨域资源请求校验，默认false
+  # thymeleaf配置；若不使用thymeleaf需删除thymeleaf依赖且删除该配置
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+    cache: false
+    servlet:
+      content-type: text/html
+
+
+# http请求
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  sentinel:
+    enabled: true #开启alibaba哨兵
+  hystrix:
+    enabled: false
+  compression:
+    request:
+      enabled: true # gzip压缩
+    response:
+      enabled: true # gizp压缩
+  client:
+    config:
+      default:  #填写default为所有服务,可填写所有服务名
+        connectTimeout: 2000 #建立连接所用的时间，一般内网，网络正常情况下不需要设置太长时间
+        readTimeout: 5000 #传递数据所用的时间
+        #默认不重试，重试对于非幂等的接口，会造成数据异常
+        #retryer: feign.Retryer.Default # 重试间隔100 ms，最大重试间隔1s，最大重试次数默认5次(包含首次)
+        loggerLevel: BASIC
+
+### 请求处理的超时时间,feign并没有使用这个配置，与注册中心的交互中用到ribbon
+ribbon:
+  # 等待请求响应的超时时间. 单位：ms
+  ReadTimeout: 30000
+  # 连接超时时间. 单位：ms
+  ConnectTimeout: 1500
+  # 是否对所有请求进行失败重试, 设置为 false, 让feign只针对Get请求进行重试.
+  OkToRetryOnAllOperations: false

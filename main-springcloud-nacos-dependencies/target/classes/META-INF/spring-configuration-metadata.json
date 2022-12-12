@@ -1,0 +1,106 @@
+{
+  "groups": [
+    {
+      "name": "async.thead.pool",
+      "type": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties"
+    },
+    {
+      "name": "spring.security.user",
+      "type": "com.main.security.SecurityProperties",
+      "sourceType": "com.main.security.SecurityProperties"
+    },
+    {
+      "name": "swagger.api-info",
+      "type": "com.main.swagger.SwaggerProperties",
+      "sourceType": "com.main.swagger.SwaggerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "async.thead.pool.await-termination-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": 60
+    },
+    {
+      "name": "async.thead.pool.core-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": 10
+    },
+    {
+      "name": "async.thead.pool.keep-alive-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": 30
+    },
+    {
+      "name": "async.thead.pool.max-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": 30
+    },
+    {
+      "name": "async.thead.pool.queue-capacity",
+      "type": "java.lang.Integer",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": 200
+    },
+    {
+      "name": "async.thead.pool.rejected-execution-handler",
+      "type": "java.lang.String",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": "AbortPolicy"
+    },
+    {
+      "name": "async.thead.pool.thread-name-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": "myAsyncTask-"
+    },
+    {
+      "name": "async.thead.pool.wait-for-task-to-complete-on-shutdown",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.main.async.AsyncConfig$AsyncThreadPoolProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.security.user.name",
+      "type": "java.lang.String",
+      "sourceType": "com.main.security.SecurityProperties",
+      "defaultValue": "main"
+    },
+    {
+      "name": "spring.security.user.password",
+      "type": "java.lang.String",
+      "sourceType": "com.main.security.SecurityProperties",
+      "defaultValue": "main"
+    },
+    {
+      "name": "swagger.api-info.base-package",
+      "type": "java.lang.String",
+      "sourceType": "com.main.swagger.SwaggerProperties",
+      "defaultValue": "com"
+    },
+    {
+      "name": "swagger.api-info.description",
+      "type": "java.lang.String",
+      "sourceType": "com.main.swagger.SwaggerProperties",
+      "defaultValue": "MAIN 微服务API文档"
+    },
+    {
+      "name": "swagger.api-info.title",
+      "type": "java.lang.String",
+      "sourceType": "com.main.swagger.SwaggerProperties",
+      "defaultValue": "MAIN RESTful APIs"
+    },
+    {
+      "name": "swagger.api-info.version",
+      "type": "java.lang.String",
+      "sourceType": "com.main.swagger.SwaggerProperties",
+      "defaultValue": "2.0"
+    }
+  ],
+  "hints": []
+}

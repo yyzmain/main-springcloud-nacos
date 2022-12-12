@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.main.springcloud</groupId>
+    <artifactId>main-springcloud-nacos-parent</artifactId>
+    <version>2.0</version>
+    <packaging>pom</packaging>
+
+    <name>main-springcloud-nacos-parent</name>
+    <description>
+    </description>
+    <!-- springboot版本 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+    </parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+        <spring-cloud.alibaba.version>2.2.6.RELEASE</spring-cloud.alibaba.version>
+        <skipAssembly>false</skipAssembly><!--是否忽略assembly插件，可以在mvn命令的-D参数指定,在框架deploy时需要先忽略插件-->
+        <skipRemoteResource>false</skipRemoteResource><!--是否忽略remote resources插件，可以在mvn命令的-D参数指定,在框架deploy时需要先忽略插件-->
+        <archetype.version>2.0</archetype.version>
+        <archetype.dependencies.projectId>com.main.springcloud</archetype.dependencies.projectId>
+        <archetype.dependencies.artifactId>main-springcloud-nacos-dependencies</archetype.dependencies.artifactId>
+        <archetype.dependencies>${archetype.dependencies.projectId}:${archetype.dependencies.artifactId}:${archetype.version}</archetype.dependencies>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--alibaba springcloud依赖版本-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>${archetype.dependencies.projectId}</groupId>
+            <artifactId>${archetype.dependencies.artifactId}</artifactId>
+            <version>${archetype.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+      
+        <repository>
+            <id>aliyun</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
+    <build>
+
+        <plugins>
+            <!--构建骨架的插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-archetype-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+            <!-- 引用共享文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <resourceBundles>
+                        <resourceBundle>${archetype.dependencies}</resourceBundle>
+                    </resourceBundles>
+                    <skip>${skipRemoteResource}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

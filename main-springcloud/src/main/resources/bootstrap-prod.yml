@@ -1,0 +1,25 @@
+spring:
+  application:
+    # 读取maven中的属性
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      # 服务发现
+      discovery:
+        server-addr: localhost:8848
+        namespace:  # 一个项目一个命名空间
+        group: mse # 一般根据归属功能域分组，研发自行修改
+        cluster-name: fuzhou # 一般是给服务打个标签，例如在容灾场景下，相同一个微服务，会部署在杭州、北京
+        username: nacos
+        password: nacos
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml #只能配置一个
+        namespace:  # 一个项目一个命名空间
+        group: bomc # 一般根据归属功能域分组，研发自行修改
+        cluster-name: fuzhou # 一般是给服务打个标签，例如在容灾场景下，相同一个微服务，会部署在杭州、北京
+        username: nacos
+        password: nacos
+    sentinel:
+      transport:
+        dashboard: localhost:8080
