@@ -1,9 +1,0 @@
-spring:
-  profiles:
-    # 加载其他配置(default是骨架内置的配置)，顺序对加载结果有影响，后面的会覆盖前面的
-    # 若需要覆盖骨架中的配置，2种方式，1：在custom配置文件中覆盖，2：启动脚本中覆盖；建议启动脚本中覆盖
-    include: default,prod
-    active: prod
-
-
-
