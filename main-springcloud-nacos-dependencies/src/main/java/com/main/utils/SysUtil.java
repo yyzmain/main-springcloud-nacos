@@ -20,7 +20,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class SysUtil {
 
-    public static class SysConstants{
+    public static class SysConstants {
         public static final String USER_ID_KEY = "userId";
         public static final String GROUP_ID_KEY = "groupId";
         public static final String ACCESS_TOKEN_KEY = "NLC_ACCESS_TOKEN";
@@ -47,7 +47,7 @@ public class SysUtil {
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
                     }
-                    if (inet!=null){
+                    if (inet != null) {
                         ipAddress = inet.getHostAddress();
                     }
                 }
@@ -75,6 +75,7 @@ public class SysUtil {
 
     /**
      * 获取客户端IP
+     *
      * @return
      */
     public static String getClientIp() {
@@ -85,6 +86,7 @@ public class SysUtil {
 
     /**
      * 获取当前用户id
+     *
      * @return
      */
     public static String getUserId() {
@@ -93,8 +95,8 @@ public class SysUtil {
     }
 
     /*
-    * 获取当前用户组
-    * */
+     * 获取当前用户组
+     * */
     public static String getGroupId() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return request.getHeader("groupId");
@@ -118,7 +120,7 @@ public class SysUtil {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String baseProvinceName = request.getHeader("provinceName");
         byte[] base64Cq = Base64.decode(baseProvinceName);
-        return new String(base64Cq,UTF_8);
+        return new String(base64Cq, UTF_8);
     }
 
     @Deprecated

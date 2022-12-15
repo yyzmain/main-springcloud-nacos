@@ -1,25 +1,18 @@
 package com.main.log;
 
 import com.main.utils.SysUtil;
-import org.aspectj.lang.annotation.Aspect;
-
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * 使用AOP将执行方法以及耗时记录进日志
  * 一个方法中可设置多个切面
- *
- * @author linds
  */
 
 @Aspect
@@ -93,7 +86,7 @@ public class AspectLog {
      * 拦截http response
      */
     @AfterReturning(returning = "object", pointcut = "controllerPointcut()")
-    public void doAfterReturning(JoinPoint joinPoint,Object object) {
+    public void doAfterReturning(JoinPoint joinPoint, Object object) {
 
         if (log.isDebugEnabled()) {
             log.debug("Controller结束:{\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}.{}\",\"result\":{}}",

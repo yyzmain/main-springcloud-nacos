@@ -31,10 +31,8 @@ import java.util.Enumeration;
 public class FeignConfig {
 
 
-
     /**
      * 配置feign调用服务的security账号密码(静态)
-     *
      */
     @Bean
     public BasicAuthRequestInterceptor basicAuthRequestInterceptor(SecurityProperties feignSecurityProperties) {
@@ -64,8 +62,8 @@ public class FeignConfig {
                     if (!StringUtils.equalsIgnoreCase("Content-Length", key)
                             && !StringUtils.equalsIgnoreCase("Content-Type", key)
                             && !StringUtils.equalsIgnoreCase("accept", key)
-                            && !StringUtils.equalsIgnoreCase("Authorization",key)) {
-                        log.debug("header key = {},value = {}",key,value);
+                            && !StringUtils.equalsIgnoreCase("Authorization", key)) {
+                        log.debug("header key = {},value = {}", key, value);
                         template.header(key, value);
                     }
                 }

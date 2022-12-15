@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /*
-* 替代OkHttpFeignConfiguration来初始化okhttp客户端
-* 目的：基于okhttp拦截器(默认的客户端没有添加拦截器)技术，拦截请求，在请求发起前修改请求头，注入请求目标的Authorization请求头
-* */
+ * 替代OkHttpFeignConfiguration来初始化okhttp客户端
+ * 目的：基于okhttp拦截器(默认的客户端没有添加拦截器)技术，拦截请求，在请求发起前修改请求头，注入请求目标的Authorization请求头
+ * */
 
 @Configuration(
         proxyBeanMethods = false
@@ -55,6 +55,7 @@ public class OkHttpFeignConfig {
 
     /**
      * OkHttpFeignLoadBalancedConfiguration会再包一层
+     *
      * @param httpClientFactory
      * @param connectionPool
      * @param httpClientProperties
@@ -63,12 +64,12 @@ public class OkHttpFeignConfig {
      */
     @Bean
     @ConditionalOnMissingBean({okhttp3.OkHttpClient.class})
-    public okhttp3.OkHttpClient client(OkHttpClientFactory httpClientFactory, ConnectionPool connectionPool, FeignHttpClientProperties httpClientProperties,Interceptor interceptor) {
+    public okhttp3.OkHttpClient client(OkHttpClientFactory httpClientFactory, ConnectionPool connectionPool, FeignHttpClientProperties httpClientProperties, Interceptor interceptor) {
         Boolean followRedirects = httpClientProperties.isFollowRedirects();
         Integer connectTimeout = httpClientProperties.getConnectionTimeout();
         Boolean disableSslValidation = httpClientProperties.isDisableSslValidation();
         this.okHttpClient = httpClientFactory.createBuilder(disableSslValidation)
-                .connectTimeout((long)connectTimeout, TimeUnit.MILLISECONDS)
+                .connectTimeout((long) connectTimeout, TimeUnit.MILLISECONDS)
                 .followRedirects(followRedirects)
                 .connectionPool(connectionPool)
                 //添加拦截器
@@ -81,7 +82,7 @@ public class OkHttpFeignConfig {
      * feign传递target name（被调用服务的名称）
      * */
     @Bean
-    public RequestInterceptor transmitTargetRequestInterceptor(){
+    public RequestInterceptor transmitTargetRequestInterceptor() {
         return requestTemplate -> {
             requestTemplate.header(TARGET_KEY, requestTemplate.feignTarget().name());
         };
@@ -89,10 +90,10 @@ public class OkHttpFeignConfig {
 
 
     /*
-    * okhttp拦截器，添加被调用服务的访问账号密码，该账号密码动态注册到注册中心
-    * */
+     * okhttp拦截器，添加被调用服务的访问账号密码，该账号密码动态注册到注册中心
+     * */
     @Bean
-    public Interceptor requestInterceptor(DiscoveryClient discoveryClient){
+    public Interceptor requestInterceptor(DiscoveryClient discoveryClient) {
         return (chain -> {
             Request request = chain.request();
             //根据服务名获取服务实例信息
@@ -105,12 +106,12 @@ public class OkHttpFeignConfig {
                 return false;
             }).findFirst().orElse(null);
             Request.Builder requestBuilder = request.newBuilder().removeHeader(TARGET_KEY);
-            if(targetService != null ){
+            if (targetService != null) {
                 //获取用户名和密码
                 String username = targetService.getMetadata().get("username");
                 String password = targetService.getMetadata().get("password");
                 //设置服务实例的访问认证头信息
-                if(StringUtils.isNoneEmpty(username,password)){
+                if (StringUtils.isNoneEmpty(username, password)) {
                     String base64Credentials = getBase64Credentials(username, password);
                     requestBuilder = requestBuilder.removeHeader(HttpHeaders.AUTHORIZATION)
                             .addHeader(HttpHeaders.AUTHORIZATION, base64Credentials);

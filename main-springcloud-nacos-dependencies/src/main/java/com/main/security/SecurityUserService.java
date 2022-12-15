@@ -28,7 +28,7 @@ public class SecurityUserService implements UserDetailsService {
                     , securityProperties.getName());
         }
         if (StringUtils.equals(username, securityProperties.getName())) {
-            return new User(username, "{noop}"+securityProperties.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("user"));
+            return new User(username, "{noop}" + securityProperties.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("user"));
         }
         return null;
     }

@@ -29,7 +29,6 @@ import java.util.concurrent.TimeUnit;
  * 会导致在feign的RequestInterceptor获取不到当前请求的header信息而无法把header参数完后面的服务传递，因此使用自定义的策略，在线程中共享request参数
  * 为什么不用hystrix.command.default.execution.isolation.strategy: SEMAPHORE
  * 因为这样会导致发起feign请求跟当前请求在同一个线程中，性能不好
- *
  */
 @Slf4j
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
