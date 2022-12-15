@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class TestFeignImpl implements TestFeign{
+
     @Override
     public String b() {
         log.error("b error");

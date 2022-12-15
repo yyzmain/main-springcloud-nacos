@@ -54,7 +54,7 @@ spring:
         # 配置其他机器可以访问该地址，否则只有localhost可以访问
         allow:
       # 方法调用监控，使用spring aop技术
-      aop-patterns: com.newland.bomc.*
+      aop-patterns: com.main.*
       # 多久打印一次统计数据日志
       timeBetweenLogStatsMillis: 120000
 

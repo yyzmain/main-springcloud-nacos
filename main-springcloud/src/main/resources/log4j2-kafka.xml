@@ -8,9 +8,9 @@
         <Property name="KAFKA_LOG_PATTERN">%m</Property>
     </Properties>
     <appenders>
-        <Kafka name="Kafka" topic="${env:LOG_KAFKA_TOPIC:-nlbomc-access-log}" syncSend="false">
+        <Kafka name="Kafka" topic="${env:LOG_KAFKA_TOPIC:-main-access-log}" syncSend="false">
             <PatternLayout pattern="${KAFKA_LOG_PATTERN}"/>
-            <Property name="bootstrap.servers">${env:LOG_KAFKA_SERVERS:-10.1.12.41:9092}</Property>
+            <Property name="bootstrap.servers">${env:LOG_KAFKA_SERVERS:-127.0.0.1:9092}</Property>
             <!--单条消息最大限制-->
             <!--<Property name="max.request.size">${env:LOG_KAFKA_MAX_REQUEST_SIZE:-2097152}</Property>
             &lt;!&ndash;消息批次大小&ndash;&gt;
