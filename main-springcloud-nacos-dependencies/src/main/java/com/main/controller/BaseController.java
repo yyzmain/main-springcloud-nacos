@@ -1,13 +1,12 @@
 package com.main.controller;
 
-import com.main.result.RestResult;
-import com.main.result.RestResultCode;
-import com.main.result.RestResultGenerator;
+import com.main.result.MainResult;
+import com.main.result.MainResultCode;
+import com.main.result.MainResultGenerator;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by song on 2017/6/25.
  * <p>
  * 基类控制器，用来快速设置返回类型
  */
@@ -29,37 +28,37 @@ public class BaseController {
     }
 
 
-    protected <T> RestResult<T> restResult(Integer code, String msg, T data) {
-        return RestResultGenerator.createResult(code, msg, data);
+    protected <T> MainResult<T> restResult(Integer code, String msg, T data) {
+        return MainResultGenerator.createResult(code, msg, data);
     }
 
     /**
      * 返回rest固定格式 成功（请求操作成功）
      */
-    protected <T> RestResult<T> restOkResult(String msg, T data) {
-        return restResult(RestResultCode.OK.getCode(), msg, data);
+    protected <T> MainResult<T> restOkResult(String msg, T data) {
+        return restResult(MainResultCode.OK.getCode(), msg, data);
     }
 
-    protected <T> RestResult<T> restOkResult(T data) {
-        return restOkResult(RestResultCode.OK.getMsg(), data);
+    protected <T> MainResult<T> restOkResult(T data) {
+        return restOkResult(MainResultCode.OK.getMsg(), data);
     }
 
-    protected <T> RestResult<T> restOkResult() {
+    protected <T> MainResult<T> restOkResult() {
         return restOkResult(null);
     }
 
     /**
      * 返回rest固定格式 失败（请求操作失败）
      */
-    protected <T> RestResult<T> restFailResult(String msg, T data) {
-        return restResult(RestResultCode.FAIL.getCode(), msg, data);
+    protected <T> MainResult<T> restFailResult(String msg, T data) {
+        return restResult(MainResultCode.FAIL.getCode(), msg, data);
     }
 
-    protected <T> RestResult<T> restFailResult(T data) {
-        return restOkResult(RestResultCode.FAIL.getMsg(), data);
+    protected <T> MainResult<T> restFailResult(T data) {
+        return restOkResult(MainResultCode.FAIL.getMsg(), data);
     }
 
-    protected <T> RestResult<T> restFailResult() {
+    protected <T> MainResult<T> restFailResult() {
         return restOkResult(null);
     }
 

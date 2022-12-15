@@ -38,7 +38,7 @@ public class AspectLog {
     public void servicePointcut() {
     }
 
-    @Pointcut("execution(*  com.mian.mapper..*.*(..))")
+    @Pointcut("execution(*  com.main..mapper..*.*(..))")
     public void repositoryPointcut() {
     }
 

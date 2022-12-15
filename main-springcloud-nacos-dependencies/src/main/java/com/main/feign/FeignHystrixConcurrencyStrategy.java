@@ -30,7 +30,6 @@ import java.util.concurrent.TimeUnit;
  * 为什么不用hystrix.command.default.execution.isolation.strategy: SEMAPHORE
  * 因为这样会导致发起feign请求跟当前请求在同一个线程中，性能不好
  *
- * @author linds
  */
 @Slf4j
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {

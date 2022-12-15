@@ -1,22 +1,16 @@
 package com.main.result;
 
-/**
- * 通用返回类
- *
- * @author song
- * @date 2017/8/3
- */
-public class RestResult<T> {
+public class MainResult<T> {
 
     private Integer code;
     private String msg;
     private T data;
 
-    private RestResult() {
+    private MainResult() {
     }
 
-    public static <T> RestResult<T> newInstance() {
-        return new RestResult<T>();
+    public static <T> MainResult<T> newInstance() {
+        return new MainResult<T>();
     }
 
     public Integer getCode() {
