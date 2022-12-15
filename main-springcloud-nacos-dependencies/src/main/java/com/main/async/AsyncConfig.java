@@ -65,7 +65,7 @@ public class AsyncConfig implements AsyncConfigurer {
         // 设置线程空闲时间（秒），超时空闲时间，线程被回收，直到线程数量=corePoolSize
         executor.setKeepAliveSeconds(asyncThreadPoolProperties.keepAliveSeconds);
         // 设置默认线程名称
-        executor.setThreadNamePrefix("myAsyncTask-");
+        executor.setThreadNamePrefix("main-task-");
 
         try {
             // 设置拒绝策略，AbortPolicy为直接抛错
@@ -113,7 +113,7 @@ public class AsyncConfig implements AsyncConfigurer {
         private int maxPoolSize = 30;
         private int queueCapacity = 200;
         private int keepAliveSeconds = 30;
-        private String threadNamePrefix = "myAsyncTask-";
+        private String threadNamePrefix = "main-task-";
         private String rejectedExecutionHandler = "AbortPolicy";
         private boolean waitForTaskToCompleteOnShutdown = true;
         private int awaitTerminationSeconds = 60;

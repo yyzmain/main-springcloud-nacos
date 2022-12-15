@@ -2,7 +2,7 @@ spring:
   # 当前服务的访问账号与密码
   security:
     user:
-      name: bomc
+      name: main
       password: ${random.uuid} # 密码用uuid生成，并有注册到nacos上
   cloud:
     nacos:

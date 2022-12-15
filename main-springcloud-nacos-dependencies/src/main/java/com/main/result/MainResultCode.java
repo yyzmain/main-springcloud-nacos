@@ -2,7 +2,7 @@ package com.main.result;
 
 public enum MainResultCode {
 
-    OK(0, "操作成功"), FAIL(1, "操作失败");
+    OK(1, "操作成功"), FAIL(-999, "操作失败");
 
     private Integer code;
     private String msg;

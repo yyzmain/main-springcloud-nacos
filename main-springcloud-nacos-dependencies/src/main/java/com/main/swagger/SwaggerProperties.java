@@ -13,10 +13,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class SwaggerProperties {
 
-    private String title = "MAIN RESTful APIs";
-    private String description = "MAIN 微服务API文档";
+    private String title = "main restful apis";
+    private String description = "main spring cloud api Documentation";
     private String version = "2.0";
 
-    private String basePackage = "com";
+    private String basePackage = "com.main";
 
 }
