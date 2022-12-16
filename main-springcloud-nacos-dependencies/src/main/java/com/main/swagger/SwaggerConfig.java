@@ -27,9 +27,7 @@ import java.util.List;
  * 使用Swagger展现Api文档
  * 在createRestApi设置Api中方法所在的包
  * 在apiInfo设置Api文档基本信息
- *
- * @author linds
- */
+ **/
 @Configuration
 @EnableSwagger2
 @EnableConfigurationProperties(SwaggerProperties.class)
