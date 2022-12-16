@@ -1,8 +1,6 @@
 package com.main.utils;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,9 +12,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * 系统工具类
- *
- * @author song
- * @date 2018/5/8
  */
 public class SysUtil {
 

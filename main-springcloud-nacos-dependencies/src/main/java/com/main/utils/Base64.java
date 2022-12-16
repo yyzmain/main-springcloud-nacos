@@ -7,7 +7,6 @@ import java.io.OutputStream;
 /**
  * Base64 加密器
  *
- * @author linds
  */
 public class Base64 {
     private static final char[] legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();

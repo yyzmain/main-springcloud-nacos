@@ -4,6 +4,7 @@ import com.main.utils.SysUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
 
@@ -52,9 +53,8 @@ public class AspectLog {
         long end = System.currentTimeMillis();
 
         if (log.isDebugEnabled()) {
-            log.debug("方法执行耗时：{\"method\":\"{}.{}\",\"executionTime\":\"{}\"}",
-                    joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(),
+            log.debug("ctrl detail：{\"method\":\"{}\",\"executionTime\":\"{}\"}",
+                    getFullName(joinPoint),
                     (end - start));
         }
 
@@ -69,13 +69,12 @@ public class AspectLog {
     public void httpBefore(JoinPoint joinPoint) {
 
         if (log.isDebugEnabled()) {
-            log.debug("Controller开始:{\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}.{}\",\"args\":{}}",
+            log.debug("start ctrl: {\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}\",\"args\":{}}",
                     SysUtil.getClientIp(),
                     SysUtil.getUserId(),
                     SysUtil.getGroupId(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS")),
-                    joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(),
+                    getFullName(joinPoint),
                     joinPoint.getArgs());
         }
 
@@ -89,16 +88,29 @@ public class AspectLog {
     public void doAfterReturning(JoinPoint joinPoint, Object object) {
 
         if (log.isDebugEnabled()) {
-            log.debug("Controller结束:{\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}.{}\",\"result\":{}}",
+            log.debug("end ctrl: {\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}\",\"result\":{}}",
                     SysUtil.getClientIp(),
                     SysUtil.getUserId(),
                     SysUtil.getGroupId(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS")),
-                    joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(),
+                    getFullName(joinPoint),
                     object);
         }
     }
+
+    private String getFullName(JoinPoint joinPoint) {
+        try {
+            final Signature signature = joinPoint.getSignature();
+            String className = signature.getDeclaringTypeName();
+            className = className.substring(className.lastIndexOf(".") + 1);
+            final String methodName = signature.getName();
+            return className + "." + methodName;
+        } catch (Exception e) {
+            log.error("aspectLog run is error! msg:{}", e.getMessage());
+            return "";
+        }
+    }
+
 
 
 }

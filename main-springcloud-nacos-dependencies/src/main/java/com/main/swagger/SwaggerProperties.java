@@ -6,8 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * swagger-ui的api信息
  *
- * @author song
- * @date 2018/5/7
  */
 @ConfigurationProperties(prefix = "swagger.api-info")
 @Data

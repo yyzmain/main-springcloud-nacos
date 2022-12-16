@@ -10,9 +10,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * 3DES加密解密
- *
- * @author yedecan
- * @version 1.0
  */
 public class DesEncrypt {
 

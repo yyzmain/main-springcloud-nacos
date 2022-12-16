@@ -3,6 +3,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.main.feign.OkHttpFeignConfig,\
   com.main.swagger.SwaggerConfig,\
   com.main.log.AspectLog,\
+  com.main.log.MainAopLog,\
   com.main.jasypt.JasyptStringEncryptor,\
   com.main.security.SecurityConfig,\
   com.main.async.AsyncConfig,\
