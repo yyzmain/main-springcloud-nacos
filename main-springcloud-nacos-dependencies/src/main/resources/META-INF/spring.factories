@@ -8,4 +8,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.main.security.SecurityConfig,\
   com.main.async.AsyncConfig,\
   com.main.sentinel.SentinelConfig,\
-  com.main.sentinel.SentinelSpringWebmvcAspect
+  com.main.sentinel.SentinelSpringWebmvcAspect,\
+  com.main.exception.GlobalExceptionHandler
