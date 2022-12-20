@@ -13,12 +13,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 /**
  * 系统工具类
  */
-public class SysUtil {
+public class MainSysUtil {
 
     public static class SysConstants {
         public static final String USER_ID_KEY = "userId";
         public static final String GROUP_ID_KEY = "groupId";
-        public static final String ACCESS_TOKEN_KEY = "NLC_ACCESS_TOKEN";
     }
 
 
@@ -95,13 +94,6 @@ public class SysUtil {
     public static String getGroupId() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return request.getHeader("groupId");
-    }
-
-    @Deprecated
-    public static String getIdentity() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        return DesEncrypt.decrypt(request.getHeader("identity"));
-        //       return request.getHeader("identity");
     }
 
     @Deprecated
