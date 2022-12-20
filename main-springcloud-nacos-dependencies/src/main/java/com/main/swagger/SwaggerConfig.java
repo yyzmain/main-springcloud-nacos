@@ -1,7 +1,7 @@
 package com.main.swagger;
 
 
-import com.main.utils.SysUtil;
+import com.main.utils.MainSysUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -86,10 +86,8 @@ public class SwaggerConfig {
     private List<ApiKey> securitySchemes() {
         //设置请求头信息
         List<ApiKey> result = new ArrayList<>();
-        ApiKey apiKey = new ApiKey(SysUtil.SysConstants.ACCESS_TOKEN_KEY, SysUtil.SysConstants.ACCESS_TOKEN_KEY, "header");
-        ApiKey userId = new ApiKey(SysUtil.SysConstants.USER_ID_KEY, SysUtil.SysConstants.USER_ID_KEY, "header");
-        ApiKey groupId = new ApiKey(SysUtil.SysConstants.GROUP_ID_KEY, SysUtil.SysConstants.GROUP_ID_KEY, "header");
-        result.add(apiKey);
+        ApiKey userId = new ApiKey(MainSysUtil.SysConstants.USER_ID_KEY, MainSysUtil.SysConstants.USER_ID_KEY, "header");
+        ApiKey groupId = new ApiKey(MainSysUtil.SysConstants.GROUP_ID_KEY, MainSysUtil.SysConstants.GROUP_ID_KEY, "header");
         result.add(userId);
         result.add(groupId);
         return result;
@@ -98,9 +96,8 @@ public class SwaggerConfig {
     private List<SecurityContext> securityContexts() {
         List<SecurityContext> securityContextList = new ArrayList<>();
         List<SecurityReference> securityReferenceList = new ArrayList<>();
-        securityReferenceList.add(new SecurityReference(SysUtil.SysConstants.ACCESS_TOKEN_KEY, scopes()));
-        securityReferenceList.add(new SecurityReference(SysUtil.SysConstants.USER_ID_KEY, scopes()));
-        securityReferenceList.add(new SecurityReference(SysUtil.SysConstants.GROUP_ID_KEY, scopes()));
+        securityReferenceList.add(new SecurityReference(MainSysUtil.SysConstants.USER_ID_KEY, scopes()));
+        securityReferenceList.add(new SecurityReference(MainSysUtil.SysConstants.GROUP_ID_KEY, scopes()));
         securityContextList.add(SecurityContext
                 .builder()
                 .securityReferences(securityReferenceList)

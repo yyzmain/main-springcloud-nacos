@@ -1,6 +1,6 @@
 package com.main.log;
 
-import com.main.utils.SysUtil;
+import com.main.utils.MainSysUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -70,9 +70,9 @@ public class AspectLog {
 
         if (log.isDebugEnabled()) {
             log.debug("start ctrl: {\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}\",\"args\":{}}",
-                    SysUtil.getClientIp(),
-                    SysUtil.getUserId(),
-                    SysUtil.getGroupId(),
+                    MainSysUtil.getClientIp(),
+                    MainSysUtil.getUserId(),
+                    MainSysUtil.getGroupId(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS")),
                     getFullName(joinPoint),
                     joinPoint.getArgs());
@@ -89,9 +89,9 @@ public class AspectLog {
 
         if (log.isDebugEnabled()) {
             log.debug("end ctrl: {\"clientIp\":\"{}\",\"userId\":\"{}\",\"groupId\":\"{}\",\"datetime\":\"{}\",\"method\":\"{}\",\"result\":{}}",
-                    SysUtil.getClientIp(),
-                    SysUtil.getUserId(),
-                    SysUtil.getGroupId(),
+                    MainSysUtil.getClientIp(),
+                    MainSysUtil.getUserId(),
+                    MainSysUtil.getGroupId(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS")),
                     getFullName(joinPoint),
                     object);
