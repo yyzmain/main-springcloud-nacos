@@ -3,6 +3,7 @@ package com.main.exception;
 import com.main.result.MainResult;
 import com.main.result.MainResultGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
@@ -51,7 +52,7 @@ public class GlobalExceptionHandler {
         log.error("异常，{}", e.getMessage());
         List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
 
-        String message = allErrors.stream().map(s -> s.getDefaultMessage()).collect(Collectors.joining(";"));
+        String message = allErrors.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(";"));
 
 
         return MainResultGenerator.createFailResult(message);
@@ -101,6 +102,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomizeRuntimeException.class)
     public MainResult<String> handleFileOperationsException(CustomizeRuntimeException e) {
+        return MainResultGenerator.createFailResult(e.getMessage());
+    }
+
+    @ExceptionHandler(MainConcealRuntimeException.class)
+    public MainResult<String> handleFileOperationsException(MainConcealRuntimeException e) {
         return MainResultGenerator.createFailResult(e.getMessage());
     }
 }

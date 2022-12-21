@@ -3,7 +3,7 @@ package com.main.springcloud.interfaces.controller;
 import com.main.springcloud.application.service.TestService;
 import com.main.springcloud.domain.feign.TestFeign;
 import com.main.springcloud.interfaces.vo.TestVO;
-import com.main.utils.SysUtil;
+import com.main.utils.MainSysUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +42,7 @@ public class TestController {
     @GetMapping("/b")
     public String b() throws InterruptedException {
 
-        log.info("bbbbbbbbbbbbbbbbbbbb:{}", SysUtil.getUserId());
+        log.info("bbbbbbbbbbbbbbbbbbbb:{}", MainSysUtil.getUserId());
         Thread.sleep(30000);
         log.info("bbbbbbbbbbbb end");
         return "b";
