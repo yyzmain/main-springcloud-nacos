@@ -70,7 +70,7 @@ public class FeignConfig {
                 return;
             }
             if (log.isWarnEnabled()) {
-                log.warn("无header传递");
+                log.debug("无header传递");
             }
         };
     }
