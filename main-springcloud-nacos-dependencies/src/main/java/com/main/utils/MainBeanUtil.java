@@ -52,8 +52,8 @@ public class MainBeanUtil {
      */
     public static <T> T copyProperties(Object source, @NonNull Class<T> sourceClazz) {
         try {
+            if (Objects.isNull(source)) return null;
             T target = sourceClazz.newInstance();
-            if (Objects.isNull(source)) return target;
 
             BeanUtils.copyProperties(source, target);
             return target;
@@ -73,9 +73,8 @@ public class MainBeanUtil {
      */
     public static <T> T copyBean(Object source, @NonNull Class<T> clazz) {
         try {
+            if (Objects.isNull(source)) return null;
             T target = clazz.newInstance();
-            if (Objects.isNull(source)) return target;
-
             //普通属性用beancopy
             BeanUtils.copyProperties(source, target);
             //copy bean中的bean
