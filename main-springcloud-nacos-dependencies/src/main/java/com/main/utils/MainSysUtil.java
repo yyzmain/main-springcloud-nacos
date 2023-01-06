@@ -1,5 +1,7 @@
 package com.main.utils;
 
+import com.main.exception.CustomizeRuntimeException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -13,6 +15,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 /**
  * 系统工具类
  */
+@Slf4j
 public class MainSysUtil {
 
     public static class SysConstants {
@@ -20,6 +23,31 @@ public class MainSysUtil {
         public static final String GROUP_ID_KEY = "groupId";
     }
 
+    /**
+     * 从request对象中获取客户端真实的ip地址
+     *
+     * @param request request对象
+     * @return 客户端的IP地址
+     */
+    public static String getClientIpByAliyun(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
 
     private static String getIpAddr(HttpServletRequest request) {
         String ipAddress = null;
@@ -87,6 +115,22 @@ public class MainSysUtil {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return request.getHeader("userId");
     }
+
+    /**
+     * 获取当前用户id
+     *
+     * @return
+     */
+    public static Long getUserIdLong() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String userId = request.getHeader("userId");
+        if (StringUtils.isEmpty(userId)) {
+            throw new CustomizeRuntimeException("找不到登录用户信息");
+        }
+        log.info("获取到当前登录的用户ID：{}", userId);
+        return Long.valueOf(userId);
+    }
+
 
     /*
      * 获取当前用户组
