@@ -116,12 +116,14 @@ public class MainSysUtil {
         return request.getHeader("userId");
     }
 
-    /**
-     * 获取当前用户id
-     *
-     * @return
-     */
     public static Long getUserIdLong() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String userId = request.getHeader("userId");
+        log.info("获取到当前登录的用户ID：{}", userId);
+        return Long.valueOf(userId);
+    }
+
+    public static Long getUserIdLongThrow() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String userId = request.getHeader("userId");
         if (StringUtils.isEmpty(userId)) {

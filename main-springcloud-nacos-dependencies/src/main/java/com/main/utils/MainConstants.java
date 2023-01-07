@@ -5,10 +5,11 @@ public class MainConstants {
     private MainConstants() {
     }
 
-    /**
-     * 日期格式
-     */
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_FORMAT_SHORT = "yyyyMMddHHmmss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_FORMAT_SHORT = "yyyyMMdd";
+
 
     /**
      * 逗号
@@ -31,5 +32,10 @@ public class MainConstants {
 
     public static final String ONE_STRING = "1";
 
+    public static final String DOT = ".";
+
+    public static final String WHIPPLETREE = "-";
+
+    public static final String SLASH = "/";
 
 }
