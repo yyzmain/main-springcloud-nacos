@@ -2,6 +2,7 @@ package com.main.exception;
 
 import com.main.result.MainResult;
 import com.main.result.MainResultGenerator;
+import com.main.result.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    private static final String DEFAULT_ALERT = "服务器内部错误,请联系管理员.";
 
     /**
      * 内部代码抛出错误统一捕获处理
@@ -34,8 +34,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public MainResult<String> handleServerException(Exception ex) {
-        log.error(DEFAULT_ALERT, ex);
-        return MainResultGenerator.createFailResult(DEFAULT_ALERT);
+        log.error("handleServerException => ",ex);
+        return MainResultGenerator.createFailResult();
     }
 
     /**
@@ -49,13 +49,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class) //指定异常类型
     @ResponseStatus(value = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     public MainResult<String> exception(MethodArgumentNotValidException e) {
-        log.error("异常，{}", e.getMessage());
+        log.error("exception => {}", e.getMessage());
         List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
 
         String message = allErrors.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(";"));
-
-
-        return MainResultGenerator.createFailResult(message);
+        return MainResultGenerator.createFailResult(ResultCode.PARAMS_ERROR.getCode(), message);
 
     }
 
@@ -65,7 +63,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public MainResult<String> handleNotFoundException(Exception ex) {
-        log.error(DEFAULT_ALERT, ex);
+        log.error("handleNotFoundException =>", ex);
         return MainResultGenerator.createFailResult(ex.getMessage());
     }
 
@@ -75,7 +73,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public MainResult<String> illegalArgumentException(Exception ex) {
         log.error("请求参数错误,", ex);
-        return MainResultGenerator.createFailResult("请求参数错误");
+        return MainResultGenerator.createFailResult(ResultCode.PARAMS_ERROR.getCode(), ResultCode.PARAMS_ERROR.getMsg());
     }
 
 
@@ -87,7 +85,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public MainResult<String> parameterTypeErrorException(Exception e) {
         log.error("参数类型错误,", e);
-        return MainResultGenerator.createFailResult("参数类型错误");
+        return MainResultGenerator.createFailResult(ResultCode.PARAMS_ERROR.getCode(), ResultCode.PARAMS_ERROR.getMsg());
     }
 
     /**
@@ -96,7 +94,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public MainResult<String> missingParameterException(MissingServletRequestParameterException e) {
-        log.error(DEFAULT_ALERT, e);
+        log.error("未知参数异常", e);
         return MainResultGenerator.createFailResult(e.getMessage());
     }
 
@@ -108,5 +106,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MainConcealRuntimeException.class)
     public MainResult<String> handleFileOperationsException(MainConcealRuntimeException e) {
         return MainResultGenerator.createFailResult(e.getMessage());
+    }
+
+    @ExceptionHandler(MainCodeCustomizeRuntimeException.class)
+    public MainResult<String> handleFileOperationsException(MainCodeCustomizeRuntimeException e) {
+        return MainResultGenerator.createFailResult(e.getCode(), e.getMessage());
     }
 }

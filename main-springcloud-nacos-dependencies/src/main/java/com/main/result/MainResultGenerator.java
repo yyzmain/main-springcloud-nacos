@@ -13,14 +13,14 @@ public class MainResultGenerator {
     }
 
     public static <T> MainResult<T> createOkResult() {
-        return createResult(MainResultCode.OK.getCode(), MainResultCode.OK.getMsg(), null);
+        return createResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), null);
     }
 
     /**
      * 成功，默认提示
      */
     public static <T> MainResult<T> createOkResult(T data) {
-        return createResult(MainResultCode.OK.getCode(), MainResultCode.OK.getMsg(), data);
+        return createResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), data);
     }
 
 
@@ -28,28 +28,37 @@ public class MainResultGenerator {
      * 成功，自定义提示
      */
     public static <T> MainResult<T> createOkResult(String msg, T data) {
-        return createResult(MainResultCode.OK.getCode(), msg, data);
+        return createResult(ResultCode.SUCCESS.getCode(), msg, data);
     }
 
+    //////////////////////////////////  失败
     /**
      * 失败，默认提示
      */
     public static <T> MainResult<T> createFailResult() {
-        return createResult(MainResultCode.FAIL.getCode(), MainResultCode.FAIL.getMsg(), null);
+        return createResult(ResultCode.ERROR.getCode(), ResultCode.ERROR.getMsg(), null);
     }
 
     /**
      * 失败，自定义提示
      */
     public static <T> MainResult<T> createFailResult(String msg) {
-        return createResult(MainResultCode.FAIL.getCode(), msg, null);
+        return createResult(ResultCode.ERROR.getCode(), msg, null);
     }
 
     /**
      * 失败，自定义提示 & 返回失败详情
      */
-    public static <T> MainResult<T> createFailResult(String msg, T data) {
-        return createResult(MainResultCode.FAIL.getCode(), msg, data);
+    public static <T> MainResult<T> createFailResult(Integer code, String msg, T data) {
+        return createResult(code, msg, data);
     }
+
+    /**
+     * 失败，自定义提示
+     */
+    public static <T> MainResult<T> createFailResult(Integer code, String msg) {
+        return createResult(code, msg, null);
+    }
+
 
 }

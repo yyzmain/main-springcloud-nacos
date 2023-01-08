@@ -1,8 +1,8 @@
 package com.main.controller;
 
 import com.main.result.MainResult;
-import com.main.result.MainResultCode;
 import com.main.result.MainResultGenerator;
+import com.main.result.ResultCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,11 +36,11 @@ public class BaseController {
      * 返回rest固定格式 成功（请求操作成功）
      */
     protected <T> MainResult<T> restOkResult(String msg, T data) {
-        return restResult(MainResultCode.OK.getCode(), msg, data);
+        return restResult(ResultCode.SUCCESS.getCode(), msg, data);
     }
 
     protected <T> MainResult<T> restOkResult(T data) {
-        return restOkResult(MainResultCode.OK.getMsg(), data);
+        return restOkResult(ResultCode.SUCCESS.getMsg(), data);
     }
 
     protected <T> MainResult<T> restOkResult() {
@@ -51,11 +51,11 @@ public class BaseController {
      * 返回rest固定格式 失败（请求操作失败）
      */
     protected <T> MainResult<T> restFailResult(String msg, T data) {
-        return restResult(MainResultCode.FAIL.getCode(), msg, data);
+        return restResult(ResultCode.ERROR.getCode(), msg, data);
     }
 
     protected <T> MainResult<T> restFailResult(T data) {
-        return restOkResult(MainResultCode.FAIL.getMsg(), data);
+        return restOkResult(ResultCode.ERROR.getMsg(), data);
     }
 
     protected <T> MainResult<T> restFailResult() {

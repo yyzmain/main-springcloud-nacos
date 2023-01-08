@@ -1,5 +1,6 @@
 package com.main.exception;
 
+import com.main.result.ResultCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 public class MainConcealRuntimeException extends RuntimeException {
 
-    private static final String DEFAULT_ALERT = "服务器内部错误,请联系管理员.";
-
     public MainConcealRuntimeException() {
-        super(DEFAULT_ALERT);
-        log.error("==> {}", DEFAULT_ALERT);
+        super(ResultCode.ERROR.getMsg());
+        log.error("==> {}", ResultCode.ERROR.getMsg());
     }
 
 }
