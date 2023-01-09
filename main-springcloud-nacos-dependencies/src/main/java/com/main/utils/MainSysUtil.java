@@ -1,6 +1,6 @@
 package com.main.utils;
 
-import com.main.exception.CustomizeRuntimeException;
+import com.main.exception.MainResultCustomizeRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import static com.main.result.ResultCode.USER_CONNECT_LOGIN_ERROR;
+import static com.main.result.ResultCode.USER_NOT_LOGIN;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -127,7 +129,7 @@ public class MainSysUtil {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String userId = request.getHeader("userId");
         if (StringUtils.isEmpty(userId)) {
-            throw new CustomizeRuntimeException("找不到登录用户信息");
+            throw new MainResultCustomizeRuntimeException(USER_CONNECT_LOGIN_ERROR);
         }
         log.info("获取到当前登录的用户ID：{}", userId);
         return Long.valueOf(userId);
