@@ -112,4 +112,10 @@ public class GlobalExceptionHandler {
     public MainResult<String> handleFileOperationsException(MainCodeCustomizeRuntimeException e) {
         return MainResultGenerator.createFailResult(e.getCode(), e.getMessage());
     }
+
+    @ExceptionHandler(MainResultCustomizeRuntimeException.class)
+    public MainResult<String> handleFileOperationsException(MainResultCustomizeRuntimeException e) {
+        final ResultCode resultCode = e.getResultCode();
+        return MainResultGenerator.createFailResult(resultCode.getCode(), resultCode.getMsg());
+    }
 }
